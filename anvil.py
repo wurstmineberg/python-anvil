@@ -25,7 +25,7 @@ class Region:
     def chunk_column(self, x, z):
         x_offset = x & 31
         z_offset = z & 31
-        meta_offset = 4 * ((x_offset & 32) + (z_offset & 32) * 32)
+        meta_offset = 4 * (x_offset + z_offset * 32)
         chunk_location = self.locations[meta_offset:meta_offset + 4]
         offset = chunk_location[0] * (256 ** 2) + chunk_location[1] * 256 + chunk_location[2]
         if offset == 0:
