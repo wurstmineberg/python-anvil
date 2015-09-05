@@ -39,6 +39,9 @@ class ChunkColumn:
     def __init__(self, data, *, x=None, z=None):
         self.x = x
         self.z = z
+        if data is None:
+            self.data = None
+            return
         length = data[0] * (256 ** 3) + data[1] * (256 ** 2) + data[2] * 256 + data[3]
         compression = data[4]
         compressed_data = data[5:4 + length]
