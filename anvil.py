@@ -22,6 +22,21 @@ class Region:
             self.x = None
             self.z = None
 
+    def __iter__(self):
+        """Yields all existing chunk columns in the region."""
+        for meta_offset in range(0, 4096, 4):
+            z_offset, x_offset = divmod(meta_offset / 4, 32)
+            x = self.x * 32 + x
+            z = self.z * 32 + z
+            chunk_location = self.locations[meta_offset:meta_offset + 4]
+            offset = chunk_location[0] * (256 ** 2) + chunk_location[1] * 256 + chunk_location[2]
+            if offset == 0:
+                continue
+            else:
+                offset -= 2
+            sector_count = chunk_location[3]
+            yield ChunkColumn(self.data[4096 * offset:5096 * (offset + sector_count)], x=x, z=z)
+
     def chunk_column(self, x, z):
         x_offset = x & 31
         z_offset = z & 31
