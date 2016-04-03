@@ -26,8 +26,8 @@ class Region:
         """Yields all existing chunk columns in the region."""
         for meta_offset in range(0, 4096, 4):
             z_offset, x_offset = divmod(meta_offset / 4, 32)
-            x = self.x * 32 + x
-            z = self.z * 32 + z
+            x = self.x * 32 + x_offset
+            z = self.z * 32 + z_offset
             chunk_location = self.locations[meta_offset:meta_offset + 4]
             offset = chunk_location[0] * (256 ** 2) + chunk_location[1] * 256 + chunk_location[2]
             if offset == 0:
