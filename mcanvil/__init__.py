@@ -35,7 +35,7 @@ class Region:
             else:
                 offset -= 2
             sector_count = chunk_location[3]
-            yield ChunkColumn(self.data[4096 * offset:5096 * (offset + sector_count)], x=x, z=z)
+            yield ChunkColumn(self.data[4096 * offset:4096 * (offset + sector_count)], x=x, z=z)
 
     def chunk_column(self, x, z):
         x_offset = x & 31
